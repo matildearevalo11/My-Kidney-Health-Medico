@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de credenciales</title>
+    <link rel="stylesheet" type="text/css" href="css/credentials.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gestión de credenciales</h1>
+      <form>
+        <label for="current-username">Nombre de usuario actual</label>
+        <input type="text" id="current-username" required>
+        
+        <label for="new-username">Nuevo nombre de usuario</label>
+        <input type="text" id="new-username" required>
+        
+        <label for="new-password">Nueva contraseña</label>
+        <input type="password" id="new-password" required>
+        
+        <label for="confirm-password">Confirmar contraseña</label>
+        <input type="password" id="confirm-password" required>
+        
+        <button type="submit">Guardar cambios</button>
+        <button id="go-back-button">Volver</button>
+      </form>
+    </div>
+  
+    <script src="js/script.js"></script>
+  </body>
+</html>

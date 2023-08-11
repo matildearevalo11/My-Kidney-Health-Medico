@@ -1,0 +1,46 @@
+body {
+  background-image: url('../img/prueba.jpg');
+  background-size: cover;
+  background-position: center;
+    color: #000000;
+    font-family: 'Jost', sans-serif;
+    height: 500px;
+  }
+  
+  .container {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 10%;
+    
+  }
+  
+  h1 {
+    color: #000000;
+  }
+  
+  form {
+    margin-top: 20px;
+  }
+  
+  input, button {
+    margin-top: 10px;
+    font-family: 'Jost', sans-serif;
+  }
+  
+  button {
+    background-color: #63D0FF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #statusMessage {
+    margin-top: 20px;
+  }
+  

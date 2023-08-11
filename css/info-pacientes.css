@@ -1,0 +1,78 @@
+header {
+  width: 100%;
+  background-color: #63D0FF;
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  padding: 10px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  font-size: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.container {
+  margin: 20px;
+  font-family: 'Jost', sans-serif;
+}
+
+h1, h2 {
+  color: #63D0FF;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.btnes{
+  align-items: end;
+  text-align: end;
+}
+.btn-modificar{
+  background-color: #63D0FF;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 40px;
+  font-size: 11px;
+  font-family: 'Jost', sans-serif;
+}
+.btn-eliminar{
+  background-color: #63D0FF;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 40px;
+  font-size: 11px;
+  font-family: 'Jost', sans-serif;
+}

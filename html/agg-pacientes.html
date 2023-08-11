@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/agg-pacientes.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+
+
+  <title>Registrar Pacientes</title>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">Logo</div>
+      <nav>
+        <ul>
+          <li><a href="pacientes.html">Pacientes</a></li>
+          <li><a href="prescripcion.html">Prescripción</a></li>
+          <li>
+            Seguimiento
+            <ul class="submenu">
+              <li><a href="especialista.html">Especialista</a></li>
+              <li><a href="examenes.html">Examenes</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Agregar Paciente</h1>
+      <div class="form-container">
+        <form id="paciente-form">
+          <div class="form-row">
+            <div class="form-column">
+              <label for="nombre">Nombre del paciente:</label>
+              <br>
+              <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-column">
+              <label for="documento">Documento de identidad:</label>
+              <br>
+              <input type="text" id="documento" name="documento" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="fecha">Fecha de nacimiento:</label>
+              <br>
+              <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-column">
+              <label for="eps">EPS:</label>
+              <br>
+              <input type="text" id="eps" name="eps" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="estatura">Estatura:</label>
+              <br>
+              <input type="text" id="estatura" name="estatura" required>
+            </div>
+            <div class="form-column">
+              <label for="edad">Edad:</label>
+              <br>
+              <input type="text" id="edad" name="edad" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="tiposangre">Tipo de Sangre:</label>
+              <br>
+              <input type="text" id="tiposangre" name="tiposangre" required>
+            </div>
+            <div class="form-column">
+              <label for="rh">Rh:</label>
+              <br>
+              <input type="text" id="rh" name="rh" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="direccion">Dirección:</label>
+              <br>
+              <input type="text" id="direccion" name="direccion" required>
+            </div>
+            <div class="form-column">
+              <label for="telefono">Teléfono:</label>
+              <br>
+              <input type="tel" id="telefono" name="telefono" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="ocupacion">Ocupación:</label>
+              <br>
+              <input type="text" id="ocupacion" name="ocupacion" required>
+            </div>
+            <div class="form-column">
+              <label for="hipertension">Hipertensión:</label>
+              <input type="checkbox" id="hipertension" name="hipertension">
+              <label for="diabetes">Diabetes:</label>
+              <input type="checkbox" id="diabetes" name="diabetes">
+            </div>
+          </div>
+          <button type="submit">Guardar</button>
+        </form>
+        <div id="success-message" style="display: none;">Los datos del paciente se han guardado exitosamente.</div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/agg-pacientes.js"></script>
+</body>
+</html>

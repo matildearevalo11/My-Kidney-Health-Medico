@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recambios de Pacientes</title>
+  <link rel="stylesheet" href="css/recambio.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+          <div class="logo">Logo</div>
+          <nav>
+            <ul>
+              <li><a href="pacientes.html">Pacientes</a></li>
+              <li><a href="prescripcion.html">Prescripción</a></li>
+              <li>
+                Seguimiento
+                <ul class="submenu">
+                  <li><a href="especialista.html">Especialista</a></li>
+                  <li><a href="examenes.html">Examenes</a></li>
+                </ul>
+              </li>
+              <li><a href="perfil.html">Nombre</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+  
+  <main>
+    
+    <h1>Recambios de Pacientes</h1>
+    
+    <div class="filters">
+      <label for="filtro-paciente">Filtrar por paciente:</label>
+      <input type="text" id="filtro-paciente" placeholder="Ingrese el nombre del paciente">
+      <button id="btn-filtrar">Filtrar</button>
+    </div>
+    
+    <table id="tabla-recambios">
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Fecha</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos de los recambios se agregarán aquí dinámicamente -->
+      </tbody>
+    </table>
+  </main>
+  
+  <script src="js/recambio.js"></script>
+</body>
+</html>

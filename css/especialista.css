@@ -1,0 +1,144 @@
+html,
+body {
+  background-color: #ddf7fb;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+/* Estilo del menu */
+header {
+  width: 100%;
+  background-color: #63d0ff;
+  color: #fff;
+  font-family: "Jost", sans-serif;
+  padding: 10px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 40px;
+  position: relative;
+}
+
+nav ul li a {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+}
+
+nav ul li:hover > ul {
+  display: block;
+  background-color: #63d0ff;
+}
+
+nav ul ul {
+  width: 120px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #63d0ff;
+  padding: 0;
+}
+
+nav ul ul li {
+  width: 120px;
+  float: none;
+  display: list-item;
+  position: relative;
+}
+
+nav ul ul li a {
+  padding: 10px 15px;
+  color: #fff;
+}
+
+nav ul ul li a:hover {
+  background-color: #bedfec;
+}
+
+nav ul ul ul {
+  top: 0;
+  left: 100%;
+}
+
+nav ul:before,
+nav ul:after {
+  content: " ";
+  display: table;
+}
+
+nav ul:after {
+  clear: both;
+}
+
+#barra-navegacion {
+  background-color: #04bafc;
+}
+
+.container {
+  text-align: center;
+  background-color: #dbf5f7;
+  font-family: "Jost", sans-serif;
+  color: #808080;
+  padding: 20px;
+}
+
+#nombre-paciente {
+  background-color: #fff;
+}
+
+.cont-especialistas {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contenedor-especialista {
+  flex: 3;
+  left: 10px;
+  background-color: white;
+  margin: 5px;
+}
+
+.separator {
+  width: 10px;
+  background-color: gray;
+  height: 100px;
+  margin: 0 20px;
+}
+
+.mager-border {
+  padding: 15px;
+}
+
+.central-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+#contenedor-1 {
+  flex: 3;
+  /* background-color: #fff; */
+  left: 10px;
+  /* background-color: white; */
+  margin: 5px;
+}
