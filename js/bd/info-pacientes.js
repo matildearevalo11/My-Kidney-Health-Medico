@@ -3,28 +3,106 @@ document.addEventListener('DOMContentLoaded', function() {
   const prescripcionInfo = document.getElementById('prescripcionInfo');
   const seguimientoData = document.getElementById('seguimientoData');
 
-  // Obtener los datos del paciente
-  fetch('ruta-del-backend/paciente')
-    .then(response => response.json())
-    .then(data => {
+  let servidorAPI="http://localhost:8081/";
+    const cedulaEncript =localStorage.getItem("cedulaPaciente");
+    console.log(cedulaEncript); 
+var cedulaEncriptada= "";
+
+let obtenerCedulaEncriptada=async()=>{
+  console.log(cedulaEncript);
+  const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
+    method:'GET',
+    headers:{
+      "Accept":"application/json",
+      "Content-Type": "application/json"
+    }
+      });
+      const pacientes=await peticion.json();
+      console.log(pacientes);
+      pacientes.forEach(paciente=>{
+        let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+        const cedulaCodificado = decodeURIComponent(decryptedCedula);
+        console.log(decryptedCedula);
+        if(cedulaEncript===cedulaCodificado)
+        cedulaEncriptada=paciente.cedula;
+        
+      })   
+      console.log(cedulaEncriptada);
+      return cedulaEncriptada;
+}
+
+let llenarInfoPaciente=async()=>{
+let cedulaPaciente= await obtenerCedulaEncriptada();
+let pacienteInDto ={
+  cedula:cedulaPaciente
+}
+const peticion= await fetch(servidorAPI+"paciente/findPacienteByCedula",{
+  method:"POST",
+  headers: {
+    "Accept":"application/json",
+"Content-Type":"application/json"
+  },
+  body: JSON.stringify(pacienteInDto)
+});
+const paciente=await peticion.json();
+console.log(paciente);
+
+let nombre= CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let cedula= CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let eps= CryptoJS.AES.decrypt(paciente.eps, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let altura= CryptoJS.AES.decrypt(paciente.altura, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let tipoSangre= CryptoJS.AES.decrypt(paciente.tipoSangre, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let direccion= CryptoJS.AES.decrypt(paciente.direccion, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let celular= CryptoJS.AES.decrypt(paciente.celular, "clave_secreta").toString(CryptoJS.enc.Utf8);
+let ocupacion= CryptoJS.AES.decrypt(paciente.ocupacion, "clave_secreta").toString(CryptoJS.enc.Utf8);
       // Mostrar los datos del paciente en el contenedor correspondiente
       pacienteInfo.innerHTML = `
-        <p>Nombre: ${data.nombre}</p>
-        <p>Documento: ${data.documento}</p>
-        <p>Fecha de nacimiento: ${data.fecha}</p>
-        <p>EPS: ${data.eps}</p>
-        <p>Estatura: ${data.estatura}</p>
-        <p>Edad: ${data.edad}</p>
-        <p>Tipo de sangre: ${data.tiposangre}</p>
-        <p>Rh: ${data.rh}</p>
-        <p>Dirección: ${data.direccion}</p>
-        <p>Teléfono: ${data.telefono}</p>
-        <p>Ocupación: ${data.ocupacion}</p>
+        <div class="row">
+        <div class="col-4">
+        <p>Nombre: ${nombre}</p>
+        </div>
+        <div class="col-4">
+        <p>Documento: ${cedula}</p>
+        </div>
+        <div class="col-4">
+        <p>Fecha de nacimiento: ${paciente.fechaNacimiento.split("T")[0]}</p>
+        </div>
+        <div class="row">
+        <div class="col-4">
+        <p>EPS: ${eps}</p>
+        </div>
+        <div class="col-4">
+        <p>Estatura: ${paciente.altura} cms.</p>
+        </div>
+        <div class="col-4">
+        <p>Edad: ${paciente.edad}</p>
+        </div>
+        <div class="row">
+        <div class="col-4">
+        <p>Tipo de sangre: ${tipoSangre}</p>
+        </div>
+        <div class="col-4">
+        <p>Rh: ${paciente.rh}</p>
+        </div>
+        <div class="col-4">
+        <p>Dirección: ${direccion}</p>
+        </div>
+        <div class="row">
+        <div class="col-4">
+        <p>Teléfono: ${celular}</p>
+        </div>
+        <div class="col-4">
+        <p>Ocupación: ${ocupacion}</p>
+        </div>
+        </div>
       `;
-    });
+}
+llenarInfoPaciente();
+
+});
 
 // Obtener la prescripción de la diálisis
-fetch('ruta-del-backend/prescripcion')
+/*fetch('ruta-del-backend/prescripcion')
 .then(response => response.json())
 .then(data => {
   // Obtener el contenedor de la prescripción
@@ -58,6 +136,7 @@ fetch('ruta-del-backend/prescripcion')
   prescripcionContainer.appendChild(promedioUltrafiltracion);
   prescripcionContainer.appendChild(diasAnalizados);
 });
+}
 
 // Obtener el seguimiento
 fetch('ruta-del-backend/seguimiento')
@@ -132,4 +211,5 @@ btnEliminar.addEventListener('click', function() {
   ocultarPaciente(pacienteId);
 });
 
-});
+});*/
+
