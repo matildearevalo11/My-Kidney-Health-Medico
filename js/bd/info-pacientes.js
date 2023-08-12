@@ -4,12 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const seguimientoData = document.getElementById('seguimientoData');
 
   let servidorAPI="http://localhost:8081/";
-    const cedulaEncript =localStorage.getItem("cedulaPaciente");
-    console.log(cedulaEncript); 
-var cedulaEncriptada= "";
-
+  const urlParams = new URLSearchParams(window.location.search);
+    const cedulEncriptad = urlParams.get('cedula');
+    let cedulEncript = CryptoJS.AES.decrypt(cedulEncriptad, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+console.log(cedulEncript);
 let obtenerCedulaEncriptada=async()=>{
-  console.log(cedulaEncript);
   const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{
     method:'GET',
     headers:{
@@ -19,11 +18,12 @@ let obtenerCedulaEncriptada=async()=>{
       });
       const pacientes=await peticion.json();
       console.log(pacientes);
+      let cedulaEncriptada="";
       pacientes.forEach(paciente=>{
         let decryptedCedula = CryptoJS.AES.decrypt(paciente.cedula, 'clave_secreta').toString(CryptoJS.enc.Utf8);
         const cedulaCodificado = decodeURIComponent(decryptedCedula);
         console.log(decryptedCedula);
-        if(cedulaEncript===cedulaCodificado)
+        if(cedulEncript===cedulaCodificado)
         cedulaEncriptada=paciente.cedula;
         
       })   
@@ -46,7 +46,10 @@ const peticion= await fetch(servidorAPI+"paciente/findPacienteByCedula",{
 });
 const paciente=await peticion.json();
 console.log(paciente);
-
+let fechaNacimiento= paciente.fechaNacimiento.split("T")[0];
+console.log(fechaNacimiento);
+let edad= calcularEdad(fechaNacimiento);
+console.log(edad);
 let nombre= CryptoJS.AES.decrypt(paciente.nombre, "clave_secreta").toString(CryptoJS.enc.Utf8);
 let cedula= CryptoJS.AES.decrypt(paciente.cedula, "clave_secreta").toString(CryptoJS.enc.Utf8);
 let eps= CryptoJS.AES.decrypt(paciente.eps, "clave_secreta").toString(CryptoJS.enc.Utf8);
@@ -75,14 +78,11 @@ let ocupacion= CryptoJS.AES.decrypt(paciente.ocupacion, "clave_secreta").toStrin
         <p>Estatura: ${paciente.altura} cms.</p>
         </div>
         <div class="col-4">
-        <p>Edad: ${paciente.edad}</p>
+        <p>Edad: ${edad} años</p>
         </div>
         <div class="row">
         <div class="col-4">
-        <p>Tipo de sangre: ${tipoSangre}</p>
-        </div>
-        <div class="col-4">
-        <p>Rh: ${paciente.rh}</p>
+        <p>Grupo de sanguíneo: ${tipoSangre} ${paciente.rh}</p>
         </div>
         <div class="col-4">
         <p>Dirección: ${direccion}</p>
@@ -98,6 +98,19 @@ let ocupacion= CryptoJS.AES.decrypt(paciente.ocupacion, "clave_secreta").toStrin
       `;
 }
 llenarInfoPaciente();
+
+function calcularEdad(nacimiento) {
+  console.log(nacimiento);
+  const fechaNacimiento = new Date(nacimiento);
+  console.log(fechaNacimiento);
+  const fechaActual = new Date();
+  console.log(fechaActual);
+  const edadMilisegundos = fechaActual - fechaNacimiento;
+  console.log(edadMilisegundos);
+  const edad = new Date(edadMilisegundos).getFullYear() - 1970;
+  console.log(edad);
+return edad;
+}
 
 });
 
