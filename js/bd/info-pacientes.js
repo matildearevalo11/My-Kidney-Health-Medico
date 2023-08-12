@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
   let servidorAPI="http://localhost:8081/";
   const urlParams = new URLSearchParams(window.location.search);
     const cedulEncriptad = urlParams.get('cedula');
-    let cedulEncript = CryptoJS.AES.decrypt(cedulEncriptad, 'clave_secreta').toString(CryptoJS.enc.Utf8);
+    console.log(cedulEncriptad);
+    const cedulaPac=decodeURIComponent(cedulEncriptad);
+    let cedulEncript = CryptoJS.AES.decrypt(cedulaPac, 'clave_secreta').toString(CryptoJS.enc.Utf8);
 console.log(cedulEncript);
 let obtenerCedulaEncriptada=async()=>{
   const peticion= await fetch(servidorAPI+'Medico/findAllPacientes',{

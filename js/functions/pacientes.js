@@ -19,14 +19,12 @@ let pacientesTratados = async () => {
         '</tr>';
 
       pacientes.forEach((paciente) => {
-        let cedula = encodeURIComponent(paciente.cedula);
-        let cedulaPaciente= CryptoJS.AES.encrypt(cedula, "clave_secreta").toString();
         msg +=
           '<tr>' +
           '<td>' + paciente.nombre + '</td>' +
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
-          '<a href="info-pacientes.html?cedula='+cedulaPaciente+'" class="icon-link" onclick="llenarInfoPaciente() type="button">' +
+          '<a href="info-pacientes.html?cedula='+encodeURIComponent(CryptoJS.AES.encrypt(paciente.cedula, "clave_secreta").toString())+'" class="icon-link" onclick="llenarInfoPaciente() type="button">' +
           '<img src="../img/logo.jpg" class="actualizar"/>' +
           '</a>' +
           '<a href="InhabilitarPaciente.html" type="button">' +
