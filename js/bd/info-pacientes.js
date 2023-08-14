@@ -99,7 +99,7 @@ let ocupacion= CryptoJS.AES.decrypt(paciente.ocupacion, "clave_secreta").toStrin
         </div>
       `;
 }
-llenarInfoPaciente();
+//llenarInfoPaciente();
 
 function calcularEdad(nacimiento) {
   console.log(nacimiento);
