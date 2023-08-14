@@ -28,13 +28,13 @@ let pacientesTratados = async () => {
           '<td>' + paciente.cedula + '</td>' +
           '<td>' +
           '<a href="principal.html?cedula='+encodeURIComponent(CryptoJS.AES.encrypt(paciente.cedula, "clave_secreta").toString())+'"class="icon-link" onclick="llenarInfoPaciente() type="button">' +
-          '<img src="../img/ver.png" class="actualizar"/>' +
+          '<img src="../img/ver.png" class="ver"/>' +
           '</a>' +
           '<a href="info-pacientes.html" type="button">' +
           '<img src="../img/editar.png" class="actualizar"/>' +
           '</a>'+
           '<a href="pacientes.html" data-bs-toggle="modal" data-bs-target="#inhabilitarpaciente" type="button">' +
-          '<img src="../img/inhabilitar.png" class="actualizar"/>' +
+          '<img src="../img/inhabilitar.png" class="inhabilitar"/>' +
           '</a>' +
           '</td>' +
           '</tr>'+
