@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes</title>
+  <link rel="stylesheet" type="text/css" href="../css/pacientes.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">Logo</div>
+      <nav>
+        <ul>
+          <li><a href="pacientes.html">Pacientes</a></li>
+          <li><a href="prescripcion.html">Prescripción</a></li>
+          <li><a href="seguimiento.html">Seguimiento</a></li>
+          <li><a href="gestion-credenciales.html">Nombre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Pacientes</h2>
+    <div class="search-container">
+      <input type="text" id="filtro-paciente" placeholder="Paciente">
+      <button id="btn-filtrar" class="btn-filtrar">Buscar</button>
+    </div>
+    <div class="pacientes" id="pacientes">
+      
+    </div>
+    <br>
+    <div class="btn-nuevo-container">
+      <a href="../html/agg-pacientes.html" type="button" id="btn-nuevo" class="btn-nuevo">Nuevo</a>
+      
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script src="../js/bd/agg-pacientes.js"></script>
+  <script src="../js/functions/pacientes.js"></script>
+  <script src="../js/bd/info-pacientes.js"></script>
+
+  </script>
+  <script>
+    pacientesTratados(listarPacientes());
+    llenarInfoPaciente()
+  </script>
+</body>
+</html>
+</html>

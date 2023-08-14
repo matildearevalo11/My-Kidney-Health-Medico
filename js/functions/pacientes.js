@@ -22,8 +22,6 @@ let pacientesTratados = async () => {
         '</thead>';
 
       pacientes.forEach((paciente) => {
-        
-        localStorage.setItem("cedulaPaciente", paciente.cedula);
         msg +=
           '<tr>' +
           '<td>' + paciente.nombre + '</td>' +
