@@ -62,41 +62,46 @@ let celular= CryptoJS.AES.decrypt(paciente.celular, "clave_secreta").toString(Cr
 let ocupacion= CryptoJS.AES.decrypt(paciente.ocupacion, "clave_secreta").toString(CryptoJS.enc.Utf8);
       // Mostrar los datos del paciente en el contenedor correspondiente
       pacienteInfo.innerHTML = `
-        <div class="row">
-        <div class="col-4">
-        <p>Nombre: ${nombre}</p>
-        </div>
-        <div class="col-4">
-        <p>Documento: ${cedula}</p>
-        </div>
-        <div class="col-4">
-        <p>Fecha de nacimiento: ${paciente.fechaNacimiento.split("T")[0]}</p>
-        </div>
-        <div class="row">
-        <div class="col-4">
-        <p>EPS: ${eps}</p>
-        </div>
-        <div class="col-4">
-        <p>Estatura: ${paciente.altura} cms.</p>
-        </div>
-        <div class="col-4">
-        <p>Edad: ${edad} años</p>
-        </div>
-        <div class="row">
-        <div class="col-4">
-        <p>Grupo de sanguíneo: ${tipoSangre} ${paciente.rh}</p>
-        </div>
-        <div class="col-4">
-        <p>Dirección: ${direccion}</p>
-        </div>
-        <div class="row">
-        <div class="col-4">
-        <p>Teléfono: ${celular}</p>
-        </div>
-        <div class="col-4">
-        <p>Ocupación: ${ocupacion}</p>
-        </div>
-        </div>
+      <div class="row">
+      <div class="col-md-4">
+      <p><b>Nombre:</b> ${nombre}</p>
+      </div>
+      <div class="col-md-4">
+      <p><b>Documento:</b> ${cedula}</p>
+      </div>
+      <div class="col-md-4">
+      <p><b>Fecha de nacimiento:</b> ${paciente.fechaNacimiento.split("T")[0]}</p>
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+      <p><b>EPS:</b> ${eps}</p>
+      </div>
+      <div class="col-md-4">
+      <p><b>Estatura:</b> ${paciente.altura} cms.</p>
+      </div>
+      <div class="col-md-4">
+      <p><b>Edad:</b> ${edad} años</p>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+      <p><b>Grupo de sanguíneo:</b> ${tipoSangre} ${paciente.rh}</p>
+      </div>
+      <div class="col-md-4">
+      <p><b>Dirección:</b> ${direccion}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      <p><b>Teléfono:</b> ${celular}</p>
+      </div>
+      <div class="col-md-4">
+      <p><b>Ocupación:</b> ${ocupacion}</p>
+      </div>
+      </div>
+
       `;
 }
 llenarInfoPaciente();
@@ -114,45 +119,80 @@ function calcularEdad(nacimiento) {
 return edad;
 }
 
-});
+
 
 // Obtener la prescripción de la diálisis
-/*fetch('ruta-del-backend/prescripcion')
-.then(response => response.json())
-.then(data => {
-  // Obtener el contenedor de la prescripción
-  const prescripcionContainer = document.getElementById('prescripcion-container');
-
+let llenarInfoPrescripcion=async()=>{
+  let cedulaPaciente= await obtenerCedulaEncriptada();
+  let paciente ={
+    cedula:cedulaPaciente
+  }
+  const peticion= await fetch(servidorAPI+"paciente/prescripcion/prescripcionActual",{
+    method:"POST",
+    headers: {
+      "Accept":"application/json",
+  "Content-Type":"application/json"
+    },
+    body: JSON.stringify(paciente)
+  });
+  const prescripcionContainer = document.getElementById('prescripcionInfo');
+  const prescripcion=await peticion.json();
+  console.log(prescripcion);
+  console.log(prescripcion.unionPrescripcionDiasRecambios);
   // Crear elementos HTML para mostrar los datos de la prescripción
   const fechaDesde = document.createElement('p');
-  fechaDesde.textContent = `Fecha desde: ${data.fechaDesde}`;
+  fechaDesde.textContent = `Fecha Inicio: ${prescripcion.cita.fecha.split("T")[0]}`;
   const fechaHasta = document.createElement('p');
-  fechaHasta.textContent = `Fecha hasta: ${data.fechaHasta}`;
+  fechaHasta.textContent = `Fecha finalización: ${prescripcion.cita.fechaFin.split("T")[0]}`;
+  const recambios= prescripcion.unionPrescripcionDiasRecambios;
+  recambios.forEach(recambio=>{
+    let concentracion=recambio.recambios;
+    console.log(concentracion)
+    let diasActivos = "";
+    console.log(recambio.prescripcionDia);
+// Iterar a través de los días de la semana y verificar si son true
+for (const dia in recambio.prescripcionDia) {
+  if (dia !== 'cita' && dia !== 'idPrescripcionDia') {
+    if (recambio.prescripcionDia[dia]) {
+      diasActivos+=dia+", ";
+    }
+  }
+}
+
+
+console.log(diasActivos);
+  console.log(recambio.recambios.concentracion);
   const cantidadRecambios = document.createElement('p');
-  cantidadRecambios.textContent = `Cantidad de recambios: ${data.cantidadRecambios}`;
+  cantidadRecambios.textContent = `Cantidad de recambios: ${diasActivos}`;
+  prescripcionContainer.appendChild(cantidadRecambios);
+  const concentracionElement = document.createElement('p');
+  concentracionElement.textContent = `Concentración: ${recambio.concentracion}`;
+  prescripcionContainer.appendChild(concentracionElement);
+})
   const concentracion = document.createElement('p');
-  concentracion.textContent = `Concentración: ${data.concentracion}`;
+  concentracion.textContent = `Concentración: ${prescripcion.concentracion}`;
   const volumen = document.createElement('p');
-  volumen.textContent = `Volumen: ${data.volumen}`;
+  volumen.textContent = `Volumen: 2000 c.c`;
   const promedioRecambios = document.createElement('p');
-  promedioRecambios.textContent = `Promedio de recambios: ${data.promedioRecambios}`;
+  promedioRecambios.textContent = `Promedio de recambios: ${prescripcion.promedioRecambios}`;
   const promedioUltrafiltracion = document.createElement('p');
-  promedioUltrafiltracion.textContent = `Promedio de ultrafiltración: ${data.promedioUltrafiltracion}`;
+  promedioUltrafiltracion.textContent = `Promedio de ultrafiltración: ${prescripcion.promedioUltrafiltracion}`;
   const diasAnalizados = document.createElement('p');
-  diasAnalizados.textContent = `Días analizados: ${data.diasAnalizados}`;
+  diasAnalizados.textContent = `Días analizados: ${prescripcion.diasAnalizados}`;
 
   // Agregar los elementos al contenedor de la prescripción
   prescripcionContainer.appendChild(fechaDesde);
   prescripcionContainer.appendChild(fechaHasta);
-  prescripcionContainer.appendChild(cantidadRecambios);
+  
   prescripcionContainer.appendChild(concentracion);
   prescripcionContainer.appendChild(volumen);
   prescripcionContainer.appendChild(promedioRecambios);
   prescripcionContainer.appendChild(promedioUltrafiltracion);
   prescripcionContainer.appendChild(diasAnalizados);
+};
+llenarInfoPrescripcion();
 });
-}
-
+/*
 // Obtener el seguimiento
 fetch('ruta-del-backend/seguimiento')
   .then(response => response.json())
